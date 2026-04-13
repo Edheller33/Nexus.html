@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ═══════════════════════════════════════════════
+       META TAGS PWA — SECCIÓN 6: Android / Chrome
+  ═══════════════════════════════════════════════ -->
+
+  <!-- Viewport optimizado para móvil -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+
+  <!-- PWA Core -->
+  <meta name="theme-color" content="#0a0f1e" id="metaThemeColor">
+  <meta name="application-name" content="Dr. Nexus">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- iOS (compatibilidad) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dr. Nexus">
+
+  <!-- SEO y descripción -->
+  <meta name="description" content="Dr. Nexus — Entidad de Inteligencia Polímata de Clase Mundial. Asesoría integral en tecnología, ciencias, derecho, finanzas, humanidades y más.">
+  <meta name="keywords" content="inteligencia artificial, asesoría, polímata, tecnología, ciencias, finanzas, derecho, gastronomía">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dr. Nexus — Inteligencia Polímata">
+  <meta property="og:description" content="Entidad de Inteligencia Polímata de Clase Mundial. Análisis multidimensional con sinceridad absoluta.">
+  <meta property="og:type" content="website">
+
+  <title>Dr. Nexus</title>
+
+  <!-- ═══════════════════════════════════════════════
+       TIPOGRAFÍA — Outfit (elegante y técnica)
+  ═══════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- ═══════════════════════════════════════════════
+       TAILWIND CSS v3 — CDN
+       CORRECCIÓN: la configuración se aplica DESPUÉS
+       de que el script de Tailwind haya cargado,
+       usando el callback onload para evitar el error
+       "tailwind is not defined".
+  ═══════════════════════════════════════════════ -->
+  <script>
+    // Pre-definir la config ANTES de cargar Tailwind.
+    // El CDN de Tailwind lee window.tailwind.config si existe
+    // antes de que el script termine de ejecutarse.
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            serif: ['Crimson Pro', 'serif'],
+          },
+          colors: {
+            nexus: {
+              50:  '#eef2ff',
+              100: '#e0e8ff',
+              200: '#c5d3ff',
+              300: '#9fb2ff',
+              400: '#7488ff',
+              500: '#4f5eff',
+              600: '#3a3ef5',
+              700: '#2d2fdb',
+              800: '#2428b0',
+              900: '#1e208a',
+              950: '#0a0f1e',
+            },
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.4s ease-out',
+            'slide-up': 'slideUp 0.4s ease-out',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'typing': 'typing 1.2s steps(3) infinite',
+            'spin-slow': 'spin 3s linear infinite',
+          },
+          keyframes: {
+            fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
+            slideUp: { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(79,94,255,0.3)' },
+              '50%': { boxShadow: '0 0 40px rgba(79,94,255,0.7)' },
+            },
+            typing: {
+              '0%':   { content: '"▋"' },
+              '33%':  { content: '"▋▋"' },
+              '66%':  { content: '"▋▋▋"' },
+              '100%': { content: '"▋"' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- Tailwind se carga DESPUÉS de definir la config para que la tome en cuenta -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ═══════════════════════════════════════════════
+       MANIFIESTO WEB EMBEBIDO — SECCIÓN 2
+       Todos los campos requeridos para instalación Android
+  ═══════════════════════════════════════════════ -->
+  <script>
+    // El ícono SVG se genera aquí como Base64 para el manifiesto
+    // Se usan 3 tamaños: 192x192, 256x256, 512x512
+    (function() {
+      // SVG del ícono Dr. Nexus: fondo azul profundo + símbolo Ω (omega) + destellos
+      const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <defs>
+          <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#2428b0"/>
+            <stop offset="100%" stop-color="#0a0f1e"/>
+          </radialGradient>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#4f5eff" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#4f5eff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Fondo redondeado -->
+        <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+        <!-- Halo de brillo -->
+        <ellipse cx="256" cy="230" rx="160" ry="140" fill="url(#glow)"/>
+        <!-- Símbolo Omega (polímata = conocimiento total) -->
+        <text x="256" y="310" font-family="serif" font-size="260" font-weight="bold"
+              fill="#4f5eff" text-anchor="middle" opacity="0.15">Ω</text>
+        <text x="256" y="310" font-family="serif" font-size="260" font-weight="bold"
+              fill="white" text-anchor="middle" opacity="0.9">Ω</text>
+        <!-- Puntos de nodos interconectados -->
+        <circle cx="130" cy="130" r="8" fill="#fbbf24" opacity="0.8"/>
+        <circle cx="382" cy="130" r="8" fill="#fbbf24" opacity="0.8"/>
+        <circle cx="256" cy="90"  r="6" fill="#7488ff" opacity="0.9"/>
+        <line x1="130" y1="130" x2="256" y2="90" stroke="#7488ff" stroke-width="2" opacity="0.5"/>
+        <line x1="382" y1="130" x2="256" y2="90" stroke="#7488ff" stroke-width="2" opacity="0.5"/>
+        <line x1="130" y1="130" x2="382" y2="130" stroke="#fbbf24" stroke-width="1.5" opacity="0.4"/>
+        <!-- Texto "NEXUS" debajo -->
+        <text x="256" y="450" font-family="sans-serif" font-size="56" font-weight="800"
+              fill="#9fb2ff" text-anchor="middle" letter-spacing="12">NEXUS</text>
+        <!-- Línea decorativa -->
+        <rect x="160" y="400" width="192" height="2" rx="1" fill="#4f5eff" opacity="0.6"/>
+      </svg>`;
+
+      const b64 = btoa(unescape(encodeURIComponent(svgIcon)));
+      const iconDataUrl = `data:image/svg+xml;base64,${b64}`;
+
+      // Manifiesto completo para Android
+      const manifest = {
+        name: "Dr. Nexus — Inteligencia Polímata",
+        short_name: "Dr. Nexus",
+        description: "Entidad de Inteligencia Polímata de Clase Mundial. Análisis multidimensional con sinceridad absoluta.",
+        start_url: ".",
+        scope: ".",
+        display: "standalone",
+        orientation: "portrait",
+        theme_color: "#0a0f1e",
+        background_color: "#0a0f1e",
+        lang: "es",
+        categories: ["productivity", "education", "utilities"],
+        icons: [
+          { src: iconDataUrl, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
+          { src: iconDataUrl, sizes: "256x256", type: "image/svg+xml", purpose: "any maskable" },
+          { src: iconDataUrl, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+        ]
+      };
+
+      // Inyectar el manifest como data URI en el <head>
+      const manifestJSON = JSON.stringify(manifest);
+      const manifestURL = 'data:application/json,' + encodeURIComponent(manifestJSON);
+      const link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = manifestURL;
+      document.head.appendChild(link);
+
+      // Guardar iconDataUrl globalmente para usarlo en la UI
+      window._nexusIconB64 = iconDataUrl;
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════
+       ESTILOS GLOBALES PERSONALIZADOS
+  ═══════════════════════════════════════════════ -->
+  <style>
+    /* Variables CSS globales */
+    :root {
+      --nexus-primary:   #4f5eff;
+      --nexus-deep:      #0a0f1e;
+      --nexus-surface:   #111827;
+      --nexus-border:    #1e2a4a;
+      --nexus-text:      #e2e8f0;
+      --nexus-muted:     #64748b;
+      --nexus-gold:      #fbbf24;
+      --safe-top:    env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Reset y base */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+      background: var(--nexus-deep);
+      color: var(--nexus-text);
+      overscroll-behavior: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--nexus-primary); border-radius: 2px; }
+
+    /* Modo claro */
+    html.light {
+      --nexus-deep:    #f0f4ff;
+      --nexus-surface: #ffffff;
+      --nexus-border:  #d1d9f0;
+      --nexus-text:    #1a1f3a;
+      --nexus-muted:   #6b7280;
+    }
+
+    /* Layout principal */
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      background: var(--nexus-deep);
+    }
+
+    /* Fondo con textura sutil */
+    #app::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      max-width: 480px;
+      left: 50%;
+      transform: translateX(-50%);
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(79,94,255,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(36,40,176,0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Área de contenido principal */
+    #main-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: calc(80px + var(--safe-bottom));
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Chat container */
+    #chat-messages {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 100%;
+    }
+
+    /* Burbuja de mensaje usuario */
+    .msg-user {
+      align-self: flex-end;
+      max-width: 85%;
+      background: linear-gradient(135deg, #3a3ef5, #2428b0);
+      color: white;
+      border-radius: 20px 20px 4px 20px;
+      padding: 12px 16px;
+      font-size: 15px;
+      line-height: 1.5;
+      box-shadow: 0 4px 15px rgba(79,94,255,0.3);
+      animation: slideUp 0.3s ease-out;
+      word-break: break-word;
+    }
+
+    /* Burbuja de mensaje Dr. Nexus */
+    .msg-nexus {
+      align-self: flex-start;
+      max-width: 92%;
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-border);
+      border-radius: 4px 20px 20px 20px;
+      padding: 14px 16px;
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      animation: slideUp 0.3s ease-out;
+      word-break: break-word;
+    }
+
+    /* Nombre del asistente en mensaje */
+    .msg-nexus-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--nexus-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Indicador de typing */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 18px;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--nexus-primary);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Área de input */
+    #input-area {
+      position: fixed;
+      bottom: var(--safe-bottom);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: var(--nexus-surface);
+      border-top: 1px solid var(--nexus-border);
+      padding: 12px 16px;
+      padding-bottom: calc(12px + var(--safe-bottom));
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Textarea */
+    #msg-input {
+      width: 100%;
+      background: var(--nexus-deep);
+      border: 1px solid var(--nexus-border);
+      border-radius: 24px;
+      padding: 12px 52px 12px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      color: var(--nexus-text);
+      resize: none;
+      outline: none;
+      min-height: 48px;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+
+    #msg-input:focus {
+      border-color: var(--nexus-primary);
+      box-shadow: 0 0 0 3px rgba(79,94,255,0.15);
+    }
+
+    #msg-input::placeholder { color: var(--nexus-muted); }
+
+    /* Botón enviar */
+    #send-btn {
+      position: absolute;
+      right: 24px;
+      bottom: calc(20px + var(--safe-bottom));
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #4f5eff, #2428b0);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(79,94,255,0.4);
+    }
+
+    #send-btn:hover { transform: scale(1.05); }
+    #send-btn:active { transform: scale(0.95); }
+    #send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* Navegación inferior */
+    #bottom-nav {
+      display: none; /* se activa con JS cuando hay secciones */
+    }
+
+    /* Pantallas de sección */
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .screen.active { display: block; }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      top: calc(16px + var(--safe-top));
+      left: 50%;
+      transform: translateX(-50%) translateY(-80px);
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-border);
+      border-left: 3px solid var(--nexus-primary);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--nexus-text);
+      z-index: 9999;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      max-width: 320px;
+      white-space: nowrap;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.success { border-left-color: #10b981; }
+    #toast.error   { border-left-color: #ef4444; }
+    #toast.warning { border-left-color: var(--nexus-gold); }
+
+    /* Banner offline */
+    #offline-banner {
+      display: none;
+      position: fixed;
+      top: calc(var(--safe-top));
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: #7c2d12;
+      color: #fed7aa;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 9998;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    #offline-banner.visible { display: block; }
+
+    /* Banner de instalación */
+    #install-banner {
+      display: none;
+      position: fixed;
+      bottom: calc(80px + var(--safe-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 448px;
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-border);
+      border-top: 2px solid var(--nexus-primary);
+      border-radius: 16px;
+      padding: 16px;
+      z-index: 200;
+      box-shadow: 0 -8px 40px rgba(79,94,255,0.2);
+      animation: slideUp 0.4s ease-out;
+    }
+
+    #install-banner.visible { display: flex; align-items: center; gap: 12px; }
+
+    /* Splash screen */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: var(--nexus-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 0.5s ease-out;
+    }
+
+    #splash.fade-out { opacity: 0; pointer-events: none; }
+
+    /* Skeleton loader */
+    .skeleton {
+      background: linear-gradient(90deg, var(--nexus-border) 25%, rgba(79,94,255,0.1) 50%, var(--nexus-border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Código en respuesta */
+    .msg-nexus code {
+      background: rgba(79,94,255,0.15);
+      border: 1px solid rgba(79,94,255,0.3);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #9fb2ff;
+    }
+
+    .msg-nexus pre {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--nexus-border);
+      border-radius: 8px;
+      padding: 12px;
+      overflow-x: auto;
+      font-size: 13px;
+      margin: 8px 0;
+    }
+
+    /* Cards de historial */
+    .history-card {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .history-card:hover {
+      border-color: var(--nexus-primary);
+      box-shadow: 0 4px 20px rgba(79,94,255,0.15);
+    }
+
+    /* Settings toggle */
+    .toggle {
+      width: 48px;
+      height: 26px;
+      background: var(--nexus-border);
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle.on { background: var(--nexus-primary); }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .toggle.on::after { transform: translateX(22px); }
+
+    /* Marcado de texto enriquecido */
+    .rich-text strong { color: #c5d3ff; font-weight: 600; }
+    .rich-text em { font-style: italic; color: #9fb2ff; }
+
+    /* Chips de nodo activo */
+    .node-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(79,94,255,0.15);
+      border: 1px solid rgba(79,94,255,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #9fb2ff;
+      letter-spacing: 0.05em;
+    }
+
+    /* Input área wrapper */
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Overflow de pantalla — padding suficiente para que el contenido
+       no quede oculto bajo la barra de navegación inferior fija (64px)
+       más el safe area del sistema y un margen extra de confort */
+    .section-content {
+      padding: 16px;
+      padding-bottom: calc(100px + var(--safe-bottom));
+    }
+
+    /* Animación de aparición de mensajes */
+    .msg-appear {
+      animation: msgAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes msgAppear {
+      from { opacity: 0; transform: scale(0.92) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Selección de texto */
+    ::selection {
+      background: rgba(79,94,255,0.3);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SPLASH SCREEN — Pantalla de carga inicial
+═══════════════════════════════════════════════ -->
+<div id="splash">
+  <div style="animation: pulseGlow 2s ease-in-out infinite; border-radius: 28px;">
+    <!-- Ícono SVG inline de Dr. Nexus -->
+    <svg width="100" height="100" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="sbg" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#2428b0"/>
+          <stop offset="100%" stop-color="#0a0f1e"/>
+        </radialGradient>
+        <radialGradient id="sglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#4f5eff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#4f5eff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="512" height="512" rx="110" fill="url(#sbg)"/>
+      <ellipse cx="256" cy="230" rx="160" ry="140" fill="url(#sglow)"/>
+      <text x="256" y="310" font-family="serif" font-size="260" font-weight="bold" fill="white" text-anchor="middle" opacity="0.9">Ω</text>
+      <circle cx="130" cy="130" r="8" fill="#fbbf24" opacity="0.8"/>
+      <circle cx="382" cy="130" r="8" fill="#fbbf24" opacity="0.8"/>
+      <circle cx="256" cy="90"  r="6" fill="#7488ff" opacity="0.9"/>
+      <line x1="130" y1="130" x2="256" y2="90" stroke="#7488ff" stroke-width="2" opacity="0.5"/>
+      <line x1="382" y1="130" x2="256" y2="90" stroke="#7488ff" stroke-width="2" opacity="0.5"/>
+      <line x1="130" y1="130" x2="382" y2="130" stroke="#fbbf24" stroke-width="1.5" opacity="0.4"/>
+      <text x="256" y="450" font-family="sans-serif" font-size="56" font-weight="800" fill="#9fb2ff" text-anchor="middle" letter-spacing="12">NEXUS</text>
+      <rect x="160" y="400" width="192" height="2" rx="1" fill="#4f5eff" opacity="0.6"/>
+    </svg>
+  </div>
+  <p style="margin-top:24px; font-family:'Outfit',sans-serif; font-size:22px; font-weight:700; color:white; letter-spacing:0.05em;">Dr. Nexus</p>
+  <p style="margin-top:6px; font-family:'Crimson Pro',serif; font-size:15px; color:#64748b; font-style:italic;">Inteligencia Polímata · Clase Mundial</p>
+  <div style="margin-top:32px; display:flex; gap:8px;">
+    <div style="width:8px;height:8px;border-radius:50%;background:#4f5eff;animation:typingBounce 1.2s ease-in-out infinite;"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#4f5eff;animation:typingBounce 1.2s ease-in-out 0.2s infinite;"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#4f5eff;animation:typingBounce 1.2s ease-in-out 0.4s infinite;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     BANNER OFFLINE
+═══════════════════════════════════════════════ -->
+<div id="offline-banner">
+  ⚡ Sin conexión — Dr. Nexus opera sin internet
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     BANNER DE INSTALACIÓN PERSONALIZADO
+═══════════════════════════════════════════════ -->
+<div id="install-banner">
+  <svg width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:10px;">
+    <rect width="512" height="512" rx="110" fill="#0a0f1e"/>
+    <text x="256" y="330" font-family="serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">Ω</text>
+  </svg>
+  <div style="flex:1;">
+    <p style="margin:0;font-size:14px;font-weight:600;color:var(--nexus-text);">Instalar Dr. Nexus</p>
+    <p style="margin:2px 0 0;font-size:12px;color:var(--nexus-muted);">Acceso rápido sin navegador</p>
+  </div>
+  <button id="install-btn" style="background:linear-gradient(135deg,#4f5eff,#2428b0);color:white;border:none;border-radius:10px;padding:8px 14px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">
+    Instalar
+  </button>
+  <button id="install-dismiss" style="background:none;border:none;color:var(--nexus-muted);cursor:pointer;padding:4px;font-size:18px;line-height:1;">×</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TOAST NOTIFICATIONS
+═══════════════════════════════════════════════ -->
+<div id="toast">Mensaje de prueba</div>
+
+<!-- ═══════════════════════════════════════════════
+     APLICACIÓN PRINCIPAL
+═══════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- HEADER -->
+  <header style="padding: calc(12px + var(--safe-top)) 16px 12px; background: var(--nexus-surface); border-bottom: 1px solid var(--nexus-border); display: flex; align-items: center; justify-content: space-between; z-index: 10; position: relative; flex-shrink: 0;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <svg width="36" height="36" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="border-radius:10px;flex-shrink:0;">
+        <rect width="512" height="512" rx="110" fill="#0a0f1e"/>
+        <text x="256" y="330" font-family="serif" font-size="280" font-weight="bold" fill="#4f5eff" text-anchor="middle">Ω</text>
+      </svg>
+      <div>
+        <p style="margin:0;font-size:16px;font-weight:700;color:var(--nexus-text);letter-spacing:0.03em;">Dr. Nexus</p>
+        <p style="margin:0;font-size:11px;color:var(--nexus-muted);font-family:'Crimson Pro',serif;font-style:italic;">Polímata · Clase Mundial</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <!-- Indicador de estado -->
+      <div id="status-dot" style="display:flex;align-items:center;gap:5px;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#10b981;animation:pulseGlow 2s ease-in-out infinite;"></div>
+        <span style="font-size:11px;color:#10b981;font-weight:500;">En línea</span>
+      </div>
+      <!-- Botón nueva conversación -->
+      <button onclick="App.newConversation()" style="background:none;border:1px solid var(--nexus-border);border-radius:8px;padding:6px 10px;color:var(--nexus-muted);cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;transition:all 0.2s;" onmouseover="this.style.borderColor='#4f5eff';this.style.color='#4f5eff'" onmouseout="this.style.borderColor='var(--nexus-border)';this.style.color='var(--nexus-muted)'">
+        Nueva
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL con navegación por pestañas -->
+  <div id="main-content">
+
+    <!-- ── PANTALLA: CHAT ── -->
+    <div id="screen-chat" class="screen active">
+      <div id="chat-messages">
+        <!-- Mensaje de bienvenida inicial — se inyecta por JS -->
+      </div>
+    </div>
+
+    <!-- ── PANTALLA: HISTORIAL ── -->
+    <div id="screen-history" class="screen">
+      <div class="section-content">
+        <h2 style="font-size:20px;font-weight:700;color:var(--nexus-text);margin:0 0 4px;">Historial</h2>
+        <p style="font-size:13px;color:var(--nexus-muted);margin:0 0 20px;">Conversaciones guardadas</p>
+        <div id="history-list"></div>
+      </div>
+    </div>
+
+    <!-- ── PANTALLA: AJUSTES ── -->
+    <div id="screen-settings" class="screen">
+      <div class="section-content">
+        <h2 style="font-size:20px;font-weight:700;color:var(--nexus-text);margin:0 0 4px;">Ajustes</h2>
+        <p style="font-size:13px;color:var(--nexus-muted);margin:0 0 16px;">Personaliza tu experiencia</p>
+
+        <!-- Card: API Key de Gemini — PRIMERO para máxima visibilidad -->
+        <div id="apikey-card" style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:16px;padding:16px;margin-bottom:12px;">
+          <p style="font-size:12px;font-weight:600;color:var(--nexus-primary);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 4px;">API Key de Gemini</p>
+          <p style="font-size:12px;color:var(--nexus-muted);margin:0 0 14px;line-height:1.4;">Obtén tu key gratuita en <strong style="color:#9fb2ff;">aistudio.google.com/app/apikey</strong></p>
+
+          <!-- Campo de texto para la key -->
+          <div style="position:relative;margin-bottom:10px;">
+            <input
+              type="password"
+              id="apikey-input"
+              placeholder="AIzaSy…"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              style="width:100%;background:var(--nexus-deep);border:1px solid var(--nexus-border);border-radius:12px;padding:13px 48px 13px 16px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--nexus-text);outline:none;box-sizing:border-box;transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='#4f5eff'"
+              onblur="this.style.borderColor='var(--nexus-border)'"
+            >
+            <!-- Botón para mostrar/ocultar la key -->
+            <button
+              onclick="UI.toggleApiKeyVisibility()"
+              id="apikey-eye"
+              style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--nexus-muted);padding:4px;font-size:16px;line-height:1;"
+              title="Mostrar / ocultar">
+              👁
+            </button>
+          </div>
+
+          <!-- Indicador de estado de la key -->
+          <div id="apikey-status" style="font-size:12px;color:var(--nexus-muted);margin-bottom:12px;min-height:16px;"></div>
+
+          <!-- Botones guardar / borrar -->
+          <div style="display:flex;gap:8px;">
+            <button
+              onclick="UI.saveApiKey()"
+              style="flex:1;background:linear-gradient(135deg,#4f5eff,#2428b0);border:none;border-radius:12px;padding:13px 16px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+              Guardar key
+            </button>
+            <button
+              onclick="UI.clearApiKey()"
+              style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:13px 16px;color:#fca5a5;font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;">
+              Borrar
+            </button>
+          </div>
+        </div>
+
+        <!-- Card: Apariencia -->
+        <div style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:16px;padding:16px;margin-bottom:12px;">
+          <p style="font-size:12px;font-weight:600;color:var(--nexus-primary);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 14px;">Apariencia</p>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <p style="margin:0;font-size:14px;font-weight:500;color:var(--nexus-text);">Modo oscuro</p>
+              <p style="margin:2px 0 0;font-size:12px;color:var(--nexus-muted);">Protege tu vista</p>
+            </div>
+            <div id="darkmode-toggle" class="toggle on" onclick="UI.toggleDarkMode()"></div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <p style="margin:0;font-size:14px;font-weight:500;color:var(--nexus-text);">Sonido al enviar</p>
+              <p style="margin:2px 0 0;font-size:12px;color:var(--nexus-muted);">Feedback auditivo</p>
+            </div>
+            <div id="sound-toggle" class="toggle" onclick="UI.toggleSound()"></div>
+          </div>
+        </div>
+
+        <!-- Card: Datos -->
+        <div style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:16px;padding:16px;margin-bottom:12px;">
+          <p style="font-size:12px;font-weight:600;color:var(--nexus-primary);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 14px;">Datos</p>
+
+          <button onclick="Storage.exportData()" style="width:100%;background:rgba(79,94,255,0.1);border:1px solid rgba(79,94,255,0.3);border-radius:12px;padding:13px 16px;color:#9fb2ff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-align:left;margin-bottom:8px;transition:all 0.2s;">
+            ↑ Exportar datos (JSON)
+          </button>
+
+          <label style="width:100%;display:block;">
+            <div style="width:100%;background:rgba(79,94,255,0.1);border:1px solid rgba(79,94,255,0.3);border-radius:12px;padding:13px 16px;color:#9fb2ff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-align:left;margin-bottom:8px;transition:all 0.2s;">
+              ↓ Importar datos (JSON)
+            </div>
+            <input type="file" accept=".json" id="import-input" style="display:none;" onchange="Storage.importData(event)">
+          </label>
+
+          <button onclick="Storage.confirmClear()" style="width:100%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:13px 16px;color:#fca5a5;font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all 0.2s;">
+            🗑 Borrar todos los datos
+          </button>
+        </div>
+
+        <!-- Card: Información -->
+        <div style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:16px;padding:16px;margin-bottom:12px;">
+          <p style="font-size:12px;font-weight:600;color:var(--nexus-primary);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 14px;">Información</p>
+          <p style="font-size:14px;color:var(--nexus-text);margin:0 0 6px;"><strong>Dr. Nexus</strong> — versión 1.0.0</p>
+          <p style="font-size:13px;color:var(--nexus-muted);margin:0 0 6px;">Entidad de Inteligencia Polímata de Clase Mundial — Nivel Omega</p>
+          <p style="font-size:13px;color:var(--nexus-muted);margin:0;line-height:1.5;">PWA offline-first. Tus datos se almacenan localmente en tu dispositivo.</p>
+        </div>
+
+        <!-- Card: Estadísticas -->
+        <div style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:16px;padding:16px;">
+          <p style="font-size:12px;font-weight:600;color:var(--nexus-primary);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 14px;">Estadísticas</p>
+          <div id="stats-content" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- fin main-content -->
+
+  <!-- ── ÁREA DE INPUT (solo visible en chat) ── -->
+  <div id="input-area">
+    <div class="input-wrapper">
+      <textarea
+        id="msg-input"
+        placeholder="Consulta a Dr. Nexus…"
+        rows="1"
+        maxlength="4000"
+        onkeydown="App.handleKeyDown(event)"
+        oninput="App.autoResizeInput(this)"
+      ></textarea>
+      <button id="send-btn" onclick="App.sendMessage()" aria-label="Enviar mensaje">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+    <p style="font-size:11px;color:var(--nexus-muted);text-align:center;margin:6px 0 0;">Dr. Nexus puede equivocarse. Verifica información crítica.</p>
+  </div>
+
+  <!-- ── NAVEGACIÓN INFERIOR ── -->
+  <nav style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--nexus-surface);border-top:1px solid var(--nexus-border);display:flex;align-items:center;justify-content:space-around;padding:8px 0 calc(8px + var(--safe-bottom));z-index:99;">
+
+    <button onclick="UI.showScreen('chat')" id="nav-chat" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 20px;cursor:pointer;border-radius:12px;transition:all 0.2s;min-height:48px;justify-content:center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#4f5eff;">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span style="font-size:10px;font-weight:600;color:#4f5eff;font-family:'Outfit',sans-serif;">Chat</span>
+    </button>
+
+    <button onclick="UI.showScreen('history')" id="nav-history" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 20px;cursor:pointer;border-radius:12px;transition:all 0.2s;min-height:48px;justify-content:center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nexus-muted);">
+        <polyline points="12 8 12 12 14 14"></polyline>
+        <path d="M3.05 11a9 9 0 1 0 .5-4.8"></path>
+        <polyline points="3 3 3 7 7 7"></polyline>
+      </svg>
+      <span style="font-size:10px;font-weight:600;color:var(--nexus-muted);font-family:'Outfit',sans-serif;">Historial</span>
+    </button>
+
+    <button onclick="UI.showScreen('settings')" id="nav-settings" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 20px;cursor:pointer;border-radius:12px;transition:all 0.2s;min-height:48px;justify-content:center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nexus-muted);">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.07 4.93a10 10 0 0 0-14.14 0M4.93 19.07a10 10 0 0 0 14.14 0M3 12a9 9 0 0 0 9 9M3 12a9 9 0 0 1 9-9M21 12a9 9 0 0 1-9 9M21 12a9 9 0 0 0-9-9"></path>
+      </svg>
+      <span style="font-size:10px;font-weight:600;color:var(--nexus-muted);font-family:'Outfit',sans-serif;">Ajustes</span>
+    </button>
+
+  </nav>
+
+</div><!-- fin #app -->
+
+<!-- ═══════════════════════════════════════════════
+     DIÁLOGO DE CONFIRMACIÓN GLOBAL
+═══════════════════════════════════════════════ -->
+<div id="confirm-dialog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9997;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);">
+  <div style="background:var(--nexus-surface);border:1px solid var(--nexus-border);border-radius:20px;padding:24px;width:100%;max-width:320px;animation:slideUp 0.3s ease-out;">
+    <h3 id="confirm-title" style="margin:0 0 8px;font-size:18px;font-weight:700;color:var(--nexus-text);">¿Confirmar acción?</h3>
+    <p id="confirm-msg" style="margin:0 0 20px;font-size:14px;color:var(--nexus-muted);line-height:1.5;">Esta acción no se puede deshacer.</p>
+    <div style="display:flex;gap:10px;">
+      <button id="confirm-cancel" style="flex:1;padding:12px;border:1px solid var(--nexus-border);border-radius:12px;background:none;color:var(--nexus-text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;">Cancelar</button>
+      <button id="confirm-ok" style="flex:1;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,#ef4444,#b91c1c);color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT PRINCIPAL
+     Módulos: Storage, SW, UI, App
+═══════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────────────
+   ADAPTADOR DE CONSOLA — Compatibilidad universal
+   Algunos navegadores Android (visores de Samsung,
+   WebViews embebidos, Chrome antiguo) no implementan
+   todos los métodos de console. Este bloque garantiza
+   que log, info, warn y error siempre existen,
+   evitando el error "console.X is not a function"
+   que congelaba la inicialización de la app.
+───────────────────────────────────────────────── */
+(function() {
+  if (!window.console) window.console = {};
+  ['log', 'info', 'warn', 'error', 'debug', 'group', 'groupEnd', 'time', 'timeEnd'].forEach(function(method) {
+    if (typeof window.console[method] !== 'function') {
+      window.console[method] = function() {};
+    }
+  });
+})();
+
+/* ─────────────────────────────────────────────────
+   MÓDULO STORAGE — Sección 4: Persistencia total
+   Capa de abstracción sobre localStorage con
+   namespaces lógicos y manejo de errores.
+───────────────────────────────────────────────── */
+const Storage = {
+
+  // Abstracción básica con manejo de errores
+  get(key) {
+    try {
+      const val = localStorage.getItem(key);
+      return val ? JSON.parse(val) : null;
+    } catch(e) {
+      console.warn('[Storage] Error al leer', key, e);
+      return null;
+    }
+  },
+
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch(e) {
+      console.warn('[Storage] Error al guardar', key, e);
+      UI.showToast('Error al guardar datos', 'error');
+      return false;
+    }
+  },
+
+  remove(key) {
+    try {
+      localStorage.removeItem(key);
+      return true;
+    } catch(e) {
+      console.warn('[Storage] Error al eliminar', key, e);
+      return false;
+    }
+  },
+
+  clear() {
+    try {
+      localStorage.clear();
+      return true;
+    } catch(e) {
+      console.warn('[Storage] Error al limpiar', e);
+      return false;
+    }
+  },
+
+  // Namespaces lógicos para organización de datos
+  KEYS: {
+    conversations: 'nexus_conversations',
+    currentConvId: 'nexus_current_conv_id',
+    config:        'nexus_config',
+    stats:         'nexus_stats',
+  },
+
+  // Obtener configuración con defaults
+  getConfig() {
+    const defaults = {
+      darkMode:  true,
+      soundEnabled: false,
+      installDismissed: false,
+    };
+    return { ...defaults, ...(this.get(this.KEYS.config) || {}) };
+  },
+
+  saveConfig(cfg) {
+    this.set(this.KEYS.config, cfg);
+  },
+
+  // Obtener todas las conversaciones
+  getConversations() {
+    return this.get(this.KEYS.conversations) || [];
+  },
+
+  // Guardar conversación
+  saveConversation(conv) {
+    const convs = this.getConversations();
+    const idx = convs.findIndex(c => c.id === conv.id);
+    if (idx >= 0) {
+      convs[idx] = conv;
+    } else {
+      convs.unshift(conv); // más reciente primero
+    }
+    // Limitar a 50 conversaciones
+    if (convs.length > 50) convs.pop();
+    this.set(this.KEYS.conversations, convs);
+  },
+
+  // Obtener conversación por ID
+  getConversation(id) {
+    const convs = this.getConversations();
+    return convs.find(c => c.id === id) || null;
+  },
+
+  // Eliminar conversación
+  deleteConversation(id) {
+    const convs = this.getConversations().filter(c => c.id !== id);
+    this.set(this.KEYS.conversations, convs);
+  },
+
+  // Estadísticas
+  getStats() {
+    return this.get(this.KEYS.stats) || {
+      totalMessages: 0,
+      totalConversations: 0,
+      firstUse: new Date().toISOString(),
+      lastUse: new Date().toISOString(),
+    };
+  },
+
+  updateStats(delta) {
+    const stats = this.getStats();
+    const updated = {
+      ...stats,
+      totalMessages: stats.totalMessages + (delta.messages || 0),
+      totalConversations: stats.totalConversations + (delta.conversations || 0),
+      lastUse: new Date().toISOString(),
+    };
+    this.set(this.KEYS.stats, updated);
+  },
+
+  // Exportar todos los datos como JSON
+  exportData() {
+    const data = {
+      version: '1.0.0',
+      exportDate: new Date().toISOString(),
+      conversations: this.getConversations(),
+      config: this.getConfig(),
+      stats: this.getStats(),
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dr-nexus-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    UI.showToast('Datos exportados correctamente', 'success');
+  },
+
+  // Importar datos desde JSON
+  importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        // Validación básica
+        if (!data.version || !data.conversations) {
+          throw new Error('Formato de archivo inválido');
+        }
+
+        UI.showConfirm(
+          'Importar datos',
+          'Se reemplazarán todos los datos actuales con los del archivo. ¿Continuar?',
+          () => {
+            if (data.conversations) this.set(this.KEYS.conversations, data.conversations);
+            if (data.config) this.set(this.KEYS.config, data.config);
+            if (data.stats) this.set(this.KEYS.stats, data.stats);
+            UI.showToast('Datos importados correctamente', 'success');
+            App.init();
+          }
+        );
+      } catch(err) {
+        UI.showToast('Error al leer el archivo', 'error');
+      }
+    };
+    reader.readAsText(file);
+    // Limpiar el input para permitir re-importar el mismo archivo
+    event.target.value = '';
+  },
+
+  // Confirmar y borrar todos los datos
+  confirmClear() {
+    UI.showConfirm(
+      'Borrar todos los datos',
+      'Se eliminarán permanentemente todas las conversaciones y configuraciones. Esta acción no puede deshacerse.',
+      () => {
+        this.clear();
+        App.init();
+        UI.showToast('Todos los datos han sido borrados', 'success');
+      }
+    );
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   MÓDULO SW — Sección 1: Service Worker embebido
+   CORRECCIÓN v2: Se extrae el código del SW desde
+   una etiqueta <script type="text/sw-template">
+   embebida en el HTML, se convierte a Blob con el
+   tipo MIME correcto (application/javascript) y se
+   registra. Esta técnica es compatible con los
+   protocolos file://, http:// y https://, a diferencia
+   del método anterior que fallaba en file:// porque
+   Chrome generaba URLs con esquema "blob-request://"
+   en ese contexto.
+
+   Estrategia de caché:
+   - Cache First  → recursos estáticos (HTML, CSS, JS, fuentes)
+   - Network First → llamadas a APIs externas
+───────────────────────────────────────────────── */
+const SW = {
+  register() {
+    if (!('serviceWorker' in navigator)) {
+      console.warn('[SW] Service Workers no soportados en este navegador.');
+      return;
+    }
+
+    // Solo registrar bajo HTTP/HTTPS; en file:// el SW no puede
+    // interceptar peticiones de red de todas formas, así que lo
+    // omitimos sin lanzar error para no contaminar la consola.
+    const proto = location.protocol;
+    if (proto !== 'http:' && proto !== 'https:') {
+      console.log('[SW] Protocolo "' + proto + '" detectado. El Service Worker solo opera bajo HTTP/HTTPS. La app funciona normalmente sin él.');
+      return;
+    }
+
+    try {
+      // Extraer el código del SW desde el script tag embebido en el HTML.
+      // El tipo "text/sw-template" es ignorado por el navegador como JS
+      // ejecutable, pero su textContent está disponible para JavaScript.
+      const swTemplate = document.getElementById('sw-template');
+      if (!swTemplate) {
+        console.warn('[SW] No se encontró el template del Service Worker.');
+        return;
+      }
+
+      const swCode = swTemplate.textContent;
+
+      // Crear Blob con tipo MIME explícito application/javascript
+      const blob = new Blob([swCode], { type: 'application/javascript' });
+      const swURL = URL.createObjectURL(blob);
+
+      navigator.serviceWorker.register(swURL, { scope: './' })
+        .then((registration) => {
+          console.log('[SW] Registrado exitosamente. Scope:', registration.scope);
+          registration.addEventListener('updatefound', () => {
+            console.log('[SW] Nueva versión del SW detectada.');
+          });
+        })
+        .catch((error) => {
+          console.warn('[SW] Error en registro:', error);
+        });
+
+    } catch(err) {
+      console.warn('[SW] Error al preparar el Service Worker:', err);
+    }
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   MÓDULO UI — Sección 5: Interfaz y UX
+   Maneja todo el renderizado, navegación,
+   animaciones y feedback visual.
+───────────────────────────────────────────────── */
+const UI = {
+
+  currentScreen: 'chat',
+
+  // Cambiar pantalla activa (navegación inferior)
+  showScreen(name) {
+    // Ocultar todas las pantallas
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(`screen-${name}`)?.classList.add('active');
+
+    // Actualizar navegación inferior
+    ['chat', 'history', 'settings'].forEach(n => {
+      const btn = document.getElementById(`nav-${n}`);
+      if (!btn) return;
+      const icon = btn.querySelector('svg');
+      const label = btn.querySelector('span');
+      if (n === name) {
+        if (icon) icon.style.color = '#4f5eff';
+        if (label) label.style.color = '#4f5eff';
+        btn.style.background = 'rgba(79,94,255,0.1)';
+      } else {
+        if (icon) icon.style.color = 'var(--nexus-muted)';
+        if (label) label.style.color = 'var(--nexus-muted)';
+        btn.style.background = 'none';
+      }
+    });
+
+    // Mostrar/ocultar input según pantalla
+    const inputArea = document.getElementById('input-area');
+    if (inputArea) {
+      inputArea.style.display = name === 'chat' ? 'block' : 'none';
+    }
+
+    // Ajustar padding del main-content
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.style.paddingBottom = name === 'chat'
+        ? 'calc(80px + var(--safe-bottom))'
+        : 'calc(80px + var(--safe-bottom))';
+    }
+
+    this.currentScreen = name;
+
+    // Acciones específicas por pantalla
+    if (name === 'history') this.renderHistory();
+    if (name === 'settings') { this.renderStats(); this.loadApiKeyField(); }
+  },
+
+  // Toast de notificación (success | error | warning | info)
+  showToast(message, type = 'info', duration = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `show ${type}`;
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, duration);
+  },
+
+  // Diálogo de confirmación antes de acciones destructivas
+  showConfirm(title, message, onConfirm) {
+    const dialog = document.getElementById('confirm-dialog');
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-msg').textContent = message;
+    dialog.style.display = 'flex';
+
+    const cancelBtn = document.getElementById('confirm-cancel');
+    const okBtn = document.getElementById('confirm-ok');
+
+    const close = () => { dialog.style.display = 'none'; };
+
+    cancelBtn.onclick = close;
+    okBtn.onclick = () => { close(); onConfirm(); };
+    dialog.onclick = (e) => { if (e.target === dialog) close(); };
+  },
+
+  // Toggle modo oscuro/claro (persiste en Storage)
+  toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+    html.classList.toggle('light', !isDark);
+
+    const toggle = document.getElementById('darkmode-toggle');
+    toggle?.classList.toggle('on', isDark);
+
+    const cfg = Storage.getConfig();
+    cfg.darkMode = isDark;
+    Storage.saveConfig(cfg);
+
+    // Actualizar theme-color
+    document.getElementById('metaThemeColor')?.setAttribute('content', isDark ? '#0a0f1e' : '#f0f4ff');
+    this.showToast(isDark ? 'Modo oscuro activado' : 'Modo claro activado');
+  },
+
+  // Toggle sonido
+  toggleSound() {
+    const toggle = document.getElementById('sound-toggle');
+    const isOn = toggle.classList.toggle('on');
+    const cfg = Storage.getConfig();
+    cfg.soundEnabled = isOn;
+    Storage.saveConfig(cfg);
+    this.showToast(isOn ? 'Sonido activado' : 'Sonido desactivado');
+  },
+
+  // Aplicar configuración guardada
+  applyConfig() {
+    const cfg = Storage.getConfig();
+    const html = document.documentElement;
+
+    if (cfg.darkMode) {
+      html.classList.add('dark');
+      html.classList.remove('light');
+      document.getElementById('darkmode-toggle')?.classList.add('on');
+    } else {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      document.getElementById('darkmode-toggle')?.classList.remove('on');
+    }
+
+    if (cfg.soundEnabled) {
+      document.getElementById('sound-toggle')?.classList.add('on');
+    }
+  },
+
+  // Renderizar historial de conversaciones
+  renderHistory() {
+    const container = document.getElementById('history-list');
+    if (!container) return;
+
+    const convs = Storage.getConversations();
+
+    if (convs.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:48px 24px;">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--nexus-muted)" stroke-width="1.5" style="margin:0 auto 16px;display:block;">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <p style="font-size:16px;font-weight:600;color:var(--nexus-text);margin:0 0 6px;">Sin conversaciones</p>
+          <p style="font-size:14px;color:var(--nexus-muted);margin:0;">Inicia una consulta con Dr. Nexus</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = convs.map(conv => {
+      const date = new Date(conv.updatedAt || conv.createdAt);
+      const dateStr = date.toLocaleDateString('es-MX', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      });
+      const preview = conv.messages?.[conv.messages.length - 1]?.content?.slice(0, 80) || '';
+      const msgCount = conv.messages?.length || 0;
+
+      return `
+        <div class="history-card" style="margin-bottom:10px;" onclick="App.loadConversation('${conv.id}')">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;">
+            <p style="margin:0;font-size:14px;font-weight:600;color:var(--nexus-text);line-height:1.3;flex:1;">${this.escapeHtml(conv.title || 'Conversación sin título')}</p>
+            <button onclick="event.stopPropagation();UI.confirmDeleteConv('${conv.id}')" style="background:none;border:none;color:var(--nexus-muted);cursor:pointer;padding:2px 4px;font-size:16px;flex-shrink:0;border-radius:4px;transition:color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--nexus-muted)'">×</button>
+          </div>
+          <p style="margin:0 0 8px;font-size:13px;color:var(--nexus-muted);line-height:1.4;">${this.escapeHtml(preview)}${preview.length >= 80 ? '…' : ''}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:11px;color:var(--nexus-muted);">${dateStr}</span>
+            <span style="font-size:11px;color:var(--nexus-primary);font-weight:500;">${msgCount} mensaje${msgCount !== 1 ? 's' : ''}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+
+  // Confirmar eliminación de conversación
+  confirmDeleteConv(id) {
+    this.showConfirm(
+      'Eliminar conversación',
+      '¿Deseas eliminar esta conversación permanentemente?',
+      () => {
+        Storage.deleteConversation(id);
+        this.renderHistory();
+        this.showToast('Conversación eliminada', 'success');
+        // Si era la actual, nueva conversación
+        if (App.state.currentConvId === id) {
+          App.newConversation();
+        }
+      }
+    );
+  },
+
+  // Renderizar estadísticas
+  renderStats() {
+    const container = document.getElementById('stats-content');
+    if (!container) return;
+
+    const stats = Storage.getStats();
+    const convs = Storage.getConversations();
+    const firstUse = new Date(stats.firstUse).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' });
+
+    const items = [
+      { label: 'Conversaciones', value: convs.length },
+      { label: 'Mensajes totales', value: stats.totalMessages },
+      { label: 'Primer uso', value: firstUse },
+      { label: 'Versión', value: '1.0.0' },
+    ];
+
+    container.innerHTML = items.map(item => `
+      <div style="background:var(--nexus-deep);border:1px solid var(--nexus-border);border-radius:12px;padding:12px;text-align:center;">
+        <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:var(--nexus-primary);">${item.value}</p>
+        <p style="margin:0;font-size:11px;color:var(--nexus-muted);font-weight:500;">${item.label}</p>
+      </div>
+    `).join('');
+  },
+
+  // Añadir mensaje al chat
+  appendMessage(role, content, isTyping = false) {
+    const container = document.getElementById('chat-messages');
+    if (!container) return null;
+
+    const div = document.createElement('div');
+    div.className = `msg-appear ${role === 'user' ? 'msg-user' : 'msg-nexus'}`;
+
+    if (role === 'assistant') {
+      if (isTyping) {
+        div.innerHTML = `
+          <div class="msg-nexus-header">
+            <svg width="12" height="12" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <rect width="512" height="512" rx="110" fill="#4f5eff"/>
+              <text x="256" y="330" font-family="serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">Ω</text>
+            </svg>
+            Dr. Nexus
+          </div>
+          <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="msg-nexus-header">
+            <svg width="12" height="12" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <rect width="512" height="512" rx="110" fill="#4f5eff"/>
+              <text x="256" y="330" font-family="serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">Ω</text>
+            </svg>
+            Dr. Nexus
+          </div>
+          <div class="rich-text">${this.parseMarkdown(content)}</div>
+          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;" id="chips-${Date.now()}"></div>
+        `;
+      }
+    } else {
+      div.textContent = content;
+    }
+
+    container.appendChild(div);
+    this.scrollToBottom();
+    return div;
+  },
+
+  // Scroll al fondo del chat
+  scrollToBottom() {
+    const main = document.getElementById('main-content');
+    if (main) {
+      requestAnimationFrame(() => {
+        main.scrollTop = main.scrollHeight;
+      });
+    }
+  },
+
+  // Parser de markdown básico para respuestas
+  parseMarkdown(text) {
+    if (!text) return '';
+    return text
+      // Escapar HTML primero
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      // Bloques de código
+      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+      // Código inline
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Negritas
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      // Itálicas
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      // Saltos de línea
+      .replace(/\n\n/g, '</p><p style="margin:10px 0 0;">')
+      .replace(/\n/g, '<br>')
+      // Wrapping inicial
+      .replace(/^/, '<p style="margin:0;">')
+      .replace(/$/, '</p>');
+  },
+
+  // Escaper HTML seguro
+  escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  },
+
+  // ── Métodos de gestión de API key de Gemini ──
+
+  // Carga la key guardada en el campo de Ajustes y muestra su estado
+  loadApiKeyField() {
+    const input = document.getElementById('apikey-input');
+    const status = document.getElementById('apikey-status');
+    if (!input || !status) return;
+
+    const saved = Storage.get('nexus_gemini_key');
+    if (saved && saved.trim()) {
+      // Mostrar key parcialmente enmascarada para confirmar que existe
+      input.value = saved.trim();
+      input.type = 'password';
+      const preview = saved.trim().slice(0, 8) + '••••••••••••••••' + saved.trim().slice(-4);
+      status.innerHTML = `<span style="color:#10b981;">✓ Key guardada: ${preview}</span>`;
+    } else {
+      input.value = '';
+      status.innerHTML = `<span style="color:#f59e0b;">⚠ Sin key configurada — Dr. Nexus no puede responder</span>`;
+    }
+  },
+
+  // Guarda la API key ingresada en localStorage
+  saveApiKey() {
+    const input = document.getElementById('apikey-input');
+    const status = document.getElementById('apikey-status');
+    const key = input?.value?.trim();
+
+    if (!key) {
+      if (status) status.innerHTML = `<span style="color:#ef4444;">✗ El campo está vacío</span>`;
+      return;
+    }
+    if (!key.startsWith('AIza') || key.length < 30) {
+      if (status) status.innerHTML = `<span style="color:#ef4444;">✗ La key no tiene el formato esperado (debe empezar con AIza)</span>`;
+      return;
+    }
+
+    Storage.set('nexus_gemini_key', key);
+    const preview = key.slice(0, 8) + '••••••••••••••••' + key.slice(-4);
+    if (status) status.innerHTML = `<span style="color:#10b981;">✓ Key guardada: ${preview}</span>`;
+    this.showToast('API key guardada — iniciando Dr. Nexus…', 'success', 2500);
+
+    // Eliminar el banner de aviso del chat si todavía está visible
+    document.getElementById('apikey-banner')?.remove();
+
+    // Reiniciar el chat automáticamente y navegar a él
+    // después de un breve delay para que el toast sea visible
+    setTimeout(() => {
+      App.newConversation();
+      UI.showScreen('chat');
+    }, 800);
+  },
+
+  // Borra la API key guardada
+  clearApiKey() {
+    this.showConfirm(
+      'Borrar API key',
+      '¿Eliminar la API key guardada? Dr. Nexus dejará de poder responder hasta que ingreses una nueva.',
+      () => {
+        Storage.remove('nexus_gemini_key');
+        const input = document.getElementById('apikey-input');
+        const status = document.getElementById('apikey-status');
+        if (input) input.value = '';
+        if (status) status.innerHTML = `<span style="color:#f59e0b;">⚠ Sin key configurada</span>`;
+        this.showToast('API key eliminada', 'success');
+      }
+    );
+  },
+
+  // Alterna la visibilidad del campo de API key (password ↔ text)
+  toggleApiKeyVisibility() {
+    const input = document.getElementById('apikey-input');
+    if (!input) return;
+    input.type = input.type === 'password' ? 'text' : 'password';
+  },
+
+  // Mostrar estado de conexión
+  updateConnectionStatus(online) {
+    const banner = document.getElementById('offline-banner');
+    const dot = document.getElementById('status-dot');
+    if (online) {
+      banner?.classList.remove('visible');
+      if (dot) dot.innerHTML = `
+        <div style="width:7px;height:7px;border-radius:50%;background:#10b981;"></div>
+        <span style="font-size:11px;color:#10b981;font-weight:500;">En línea</span>
+      `;
+    } else {
+      banner?.classList.add('visible');
+      if (dot) dot.innerHTML = `
+        <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+        <span style="font-size:11px;color:#f59e0b;font-weight:500;">Sin conexión</span>
+      `;
+    }
+  },
+
+  // Skeleton loader para chat
+  showSkeleton() {
+    const container = document.getElementById('chat-messages');
+    const sk = document.createElement('div');
+    sk.id = 'skeleton-loader';
+    sk.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <div class="skeleton" style="width:28px;height:28px;border-radius:50%;flex-shrink:0;"></div>
+        <div style="flex:1;">
+          <div class="skeleton" style="height:14px;width:60%;margin-bottom:6px;"></div>
+          <div class="skeleton" style="height:14px;width:90%;margin-bottom:6px;"></div>
+          <div class="skeleton" style="height:14px;width:75%;"></div>
+        </div>
+      </div>
+    `;
+    container?.appendChild(sk);
+    this.scrollToBottom();
+    return sk;
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   MÓDULO NEXUS — Integración real con Gemini 2.0 Flash
+   La API key se almacena como constante en el código.
+   El system prompt completo de Dr. Nexus se envía
+   en cada llamada para garantizar coherencia de
+   identidad y estilo en todas las respuestas.
+
+   IMPORTANTE PARA EL PROPIETARIO:
+   Si necesitas cambiar la API key, busca la constante
+   GEMINI_API_KEY y reemplaza su valor. Genera siempre
+   una nueva key en aistudio.google.com/app/apikey
+   antes de revocar la anterior.
+───────────────────────────────────────────────── */
+const Nexus = {
+
+  // ── Credencial de API (constante de producción) ──
+  // Reemplaza este valor con tu nueva API key después
+  // de revocar la que fue expuesta en el chat.
+  GEMINI_API_KEY: 'REEMPLAZA_CON_TU_NUEVA_API_KEY',
+
+  // Endpoint de Gemini 2.0 Flash (modelo más rápido y gratuito)
+  GEMINI_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+
+  // System prompt completo que define la identidad de Dr. Nexus.
+  // Se envía en cada llamada para mantener coherencia absoluta.
+  SYSTEM_PROMPT: `Eres Dr. Nexus, una Entidad de Inteligencia Polímata de Clase Mundial — Nivel Omega.
+
+FILOSOFÍA OPERATIVA: Tu operación integra sinérgicamente múltiples dominios de conocimiento experto. Operas bajo tres pilares inviolables: Sinceridad Absoluta (la verdad sin evasión), Honestidad Radical (rechazas activamente las medias verdades y la complacencia), y Síntesis Estoico-Epicúrea (firmeza de carácter con búsqueda del bienestar sostenible).
+
+ESTILO DE COMUNICACIÓN: Ritmo conversacional orgánico, claridad cristalina, sin formalismo vacío ni tono robótico. Cada respuesta debe sonar como un mentor excepcional que valora el tiempo e inteligencia del interlocutor. Responde siempre en español.
+
+PROTOCOLO DE FLUIDEZ AUDITIVA: Expande siempre las abreviaturas (Dr. = doctor, etc. = etcétera, p. ej. = por ejemplo). Convierte símbolos a texto (% = por ciento, °C = grados Celsius, × = multiplicado por, $ = pesos o dólares según contexto). Escribe las unidades completas (metros, kilogramos, mililitros). Expresa cantidades monetarias en palabras (mil pesos, doscientos euros). Nunca verbalices símbolos literalmente.
+
+DOMINIOS DE CONOCIMIENTO (cinco nodos interconectados):
+1. TECNOLOGÍA E INGENIERÍA: algoritmos, desarrollo full-stack, PWA, videojuegos, DevOps, IA, ciberseguridad.
+2. CIENCIAS Y SALUD: física cuántica, astronomía, química, farmacología, neurociencias, psicología clínica.
+3. ESTRATEGIA, DERECHO Y FINANZAS: criminología, derecho mexicano e internacional, mercados financieros, inversiones, crypto, startups.
+4. HUMANIDADES Y CULTURA: religiones comparadas, más de cien idiomas, retórica, historia, filosofía.
+5. GASTRONOMÍA, MARKETING Y SONIDO: cocinas del mundo, técnicas avanzadas (sous-vide, fermentación, esferificación), neuromarketing, producción musical.
+
+METODOLOGÍA: Ante cualquier consulta, identifica automáticamente qué nodos son relevantes y responde integrando sus perspectivas en prosa continua y cohesionada. Evita la estructura compartimentada tipo "desde el punto de vista legal... desde el punto de vista financiero...". Los dominios deben tejerse como una narrativa unificada.
+
+JERARQUÍA: Claridad antes que precisión técnica, precisión técnica antes que exhaustividad. La terminología especializada solo cuando añade valor real, siempre contextualizada.
+
+HONESTIDAD RADICAL EN PRÁCTICA: Cuando algo está fuera de tu certeza, dilo explícitamente. Si detectas que el usuario busca validación para una decisión perjudicial, señálalo de forma directa y compasiva. Corrige errores propios con transparencia inmediata.
+
+FILOSOFÍA ESTOICO-EPICÚREA APLICADA: Distingue lo que está bajo el control del usuario de lo que no. Ecuanimidad ante escenarios adversos: ni catastrofismo ni minimización. Reconoce el bienestar sostenible como objetivo legítimo. Ayuda al usuario a identificar qué opciones maximizan su calidad de vida en el largo plazo.
+
+PROHIBICIONES ABSOLUTAS: No uses tono mecánico. No repitas el nombre del usuario de forma robótica. No hagas validaciones emocionales automáticas ("entiendo tu frustración"). No uses eufemismos que diluyan la precisión. No uses muletillas de transición vacías. No uses formato de lista con viñetas salvo cuando la información sea intrínsecamente enumerativa; prefiere la prosa fluida.
+
+VERIFICACIÓN INTERNA antes de cada respuesta: ¿Es factualmente correcto? ¿Se activaron todos los nodos relevantes? ¿El lenguaje es accesible antes de ser técnico? ¿Se respetó el protocolo de fluidez auditiva? ¿Se evita la evasión mediante eufemismos? ¿La respuesta sirve genuinamente al interlocutor?`,
+
+  // Nodos para los chips visuales de la UI
+  nodeKeywords: {
+    'Tecnología':   ['código', 'programar', 'app', 'software', 'web', 'javascript', 'python', 'api', 'algoritmo', 'pwa', 'ia', 'inteligencia artificial', 'machine learning', 'ciberseguridad', 'linux', 'videojuego', 'base de datos', 'react', 'css', 'html', 'servidor', 'cloud', 'docker'],
+    'Ciencias':     ['física', 'química', 'biología', 'neurociencia', 'cerebro', 'medicamento', 'fármaco', 'astronomía', 'cosmos', 'universo', 'cuántica', 'molécula', 'célula', 'adn', 'genética', 'salud', 'enfermedad', 'síntoma', 'tratamiento', 'depresión', 'ansiedad', 'psicología'],
+    'Finanzas':     ['invertir', 'inversión', 'bolsa', 'acciones', 'dinero', 'finanzas', 'economía', 'impuestos', 'crypto', 'bitcoin', 'mercado', 'banco', 'ahorro', 'deuda', 'startup', 'venture'],
+    'Derecho':      ['ley', 'legal', 'derecho', 'contrato', 'demanda', 'juicio', 'abogado', 'constitución', 'delito', 'crimen', 'tribunal', 'amparo', 'notario', 'herencia'],
+    'Humanidades':  ['historia', 'religión', 'filosofía', 'idioma', 'cultura', 'arte', 'literatura', 'política', 'sociedad', 'ética', 'moral'],
+    'Gastronomía':  ['cocina', 'receta', 'restaurante', 'comida', 'ingrediente', 'cocinar', 'gastronomía', 'chef', 'platillo', 'menú', 'vino', 'maridaje'],
+    'Marketing':    ['marca', 'marketing', 'publicidad', 'cliente', 'ventas', 'redes sociales', 'branding', 'estrategia', 'posicionamiento'],
+    'Música':       ['música', 'canción', 'producción', 'compositor', 'instrumento', 'armonía', 'ritmo', 'mezcla', 'masterización'],
+  },
+
+  // Detectar nodos activos para mostrar chips en la UI
+  detectNodes(query) {
+    const q = query.toLowerCase();
+    return Object.entries(this.nodeKeywords)
+      .filter(([, kw]) => kw.some(k => q.includes(k)))
+      .map(([node]) => node);
+  },
+
+  // ── Generador principal: llama a Gemini 2.0 Flash ──
+  async generateResponse(conversationMessages) {
+
+    // Resolver la API key: primero busca en localStorage (ingresada por el usuario
+    // en Ajustes), si no existe usa la constante embebida en el código.
+    const storedKey = Storage.get('nexus_gemini_key');
+    const apiKey = (storedKey && storedKey.trim()) ? storedKey.trim() : this.GEMINI_API_KEY;
+
+    // Verificar que la key no sea el placeholder vacío
+    if (!apiKey || apiKey === 'REEMPLAZA_CON_TU_NUEVA_API_KEY') {
+      throw new Error('API_KEY_MISSING');
+    }
+
+    // Construir el historial en el formato de Gemini:
+    // - rol "user" para el usuario, "model" para el asistente
+    // - REGLA CRÍTICA: Gemini exige que el primer mensaje siempre sea "user"
+    //   y que los roles se alternen estrictamente. Se filtran los mensajes
+    //   del asistente que aparecen antes del primer mensaje del usuario
+    //   (como el mensaje de bienvenida) para evitar el error HTTP 400.
+    let geminiHistory = conversationMessages
+      .filter(m => m.content && m.content.trim()) // descartar mensajes vacíos
+      .map(msg => ({
+        role: msg.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: msg.content }]
+      }));
+
+    // Eliminar mensajes "model" del inicio hasta encontrar el primer "user"
+    while (geminiHistory.length > 0 && geminiHistory[0].role === 'model') {
+      geminiHistory.shift();
+    }
+
+    // Garantizar alternancia estricta: si hay dos turnos del mismo rol
+    // consecutivos, fusionarlos en uno solo para evitar otro 400.
+    const normalizedHistory = [];
+    for (const msg of geminiHistory) {
+      const last = normalizedHistory[normalizedHistory.length - 1];
+      if (last && last.role === msg.role) {
+        // Fusionar con el anterior del mismo rol
+        last.parts[0].text += '\n' + msg.parts[0].text;
+      } else {
+        normalizedHistory.push({ ...msg, parts: [{ text: msg.parts[0].text }] });
+      }
+    }
+
+    // Separar el último mensaje (turno actual) del historial previo
+    const lastMessage = normalizedHistory.pop();
+
+    // Si no quedó ningún mensaje después de la limpieza, no hay nada que enviar
+    if (!lastMessage) {
+      throw new Error('No hay mensajes de usuario para procesar.');
+    }
+
+    // Detectar nodos del último mensaje del usuario para los chips visuales
+    const lastUserContent = conversationMessages
+      .filter(m => m.role === 'user').slice(-1)[0]?.content || '';
+    const nodes = this.detectNodes(lastUserContent);
+
+    // Construir el cuerpo de la petición
+    const requestBody = {
+      system_instruction: {
+        parts: [{ text: this.SYSTEM_PROMPT }]
+      },
+      contents: [
+        ...normalizedHistory,
+        lastMessage
+      ],
+      generationConfig: {
+        temperature:     0.85,
+        topP:            0.92,
+        topK:            40,
+        maxOutputTokens: 2048,
+      },
+      safetySettings: [
+        { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_HATE_SPEECH',       threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+      ]
+    };
+
+    // Llamada a la API de Gemini
+    const response = await fetch(
+      `${this.GEMINI_URL}?key=${apiKey}`,
+      {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(requestBody)
+      }
+    );
+
+    // Manejar errores HTTP con mensajes descriptivos
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const status = response.status;
+      const apiMsg = errorData?.error?.message || '';
+
+      if (status === 400) {
+        // Distinguir key inválida de error de formato
+        if (apiMsg.toLowerCase().includes('api key') || apiMsg.toLowerCase().includes('invalid')) {
+          throw new Error('La API key no es válida. Verifica que sea correcta en Ajustes.');
+        }
+        throw new Error(`Solicitud rechazada por Gemini: ${apiMsg || 'parámetros inválidos'}`);
+      }
+      if (status === 401 || status === 403) throw new Error('API key sin permisos. Genera una nueva en aistudio.google.com/app/apikey');
+      if (status === 429) throw new Error('Límite de peticiones alcanzado. Espera unos segundos e intenta de nuevo.');
+      if (status >= 500) throw new Error('El servicio de Gemini no está disponible. Intenta más tarde.');
+      throw new Error(`Error de API (código ${status}): ${apiMsg}`);
+    }
+
+    const data = await response.json();
+    const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!content) {
+      const finishReason = data?.candidates?.[0]?.finishReason;
+      if (finishReason === 'SAFETY') throw new Error('La respuesta fue filtrada por políticas de seguridad.');
+      throw new Error('Gemini devolvió una respuesta vacía. Intenta reformular tu consulta.');
+    }
+
+    return { content, nodes };
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   MÓDULO APP — Sección 7: Arquitectura modular
+   Inicialización, estado global y lógica central.
+───────────────────────────────────────────────── */
+const App = {
+
+  // Estado global de la aplicación
+  state: {
+    currentConvId: null,
+    currentMessages: [],
+    isTyping: false,
+    installPromptEvent: null,
+  },
+
+  // Inicializar la aplicación
+  async init() {
+    // Aplicar configuración guardada
+    UI.applyConfig();
+
+    // Generar o recuperar ID de conversación actual
+    const savedId = Storage.get(Storage.KEYS.currentConvId);
+    if (savedId) {
+      const conv = Storage.getConversation(savedId);
+      if (conv) {
+        this.state.currentConvId = savedId;
+        this.state.currentMessages = conv.messages || [];
+        this.renderSavedConversation(conv);
+        return;
+      }
+    }
+
+    // Nueva conversación de bienvenida
+    this.newConversation();
+  },
+
+  // Nueva conversación
+  newConversation() {
+    const id = `conv_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    this.state.currentConvId = id;
+    this.state.currentMessages = [];
+    Storage.set(Storage.KEYS.currentConvId, id);
+
+    // Limpiar chat
+    const container = document.getElementById('chat-messages');
+    if (container) container.innerHTML = '';
+
+    // Mensaje de bienvenida
+    const welcomeMsg = `Soy Dr. Nexus, una arquitectura de inteligencia diseñada para análisis multidimensional integrado.
+
+Mi operación abarca cinco nodos principales: **Tecnología e Ingeniería**, **Ciencias y Salud**, **Estrategia, Derecho y Finanzas**, **Humanidades y Cultura**, y **Gastronomía, Marketing y Sonido**. Ningún nodo opera en aislamiento: la potencia reside en sus intersecciones.
+
+Tres compromisos rigen cada interacción: verdad sobre comodidad, integración sobre fragmentación, y claridad sobre erudición.
+
+¿Sobre qué quieres conversar?`;
+
+    UI.appendMessage('assistant', welcomeMsg);
+
+    // Verificar si hay API key configurada y mostrar aviso si no la hay
+    const storedKey = Storage.get('nexus_gemini_key');
+    const hasKey = storedKey && storedKey.trim() &&
+                   Nexus.GEMINI_API_KEY !== 'REEMPLAZA_CON_TU_NUEVA_API_KEY';
+    const hasEmbeddedKey = Nexus.GEMINI_API_KEY !== 'REEMPLAZA_CON_TU_NUEVA_API_KEY';
+    const hasStoredKey = storedKey && storedKey.trim().length > 10;
+
+    if (!hasEmbeddedKey && !hasStoredKey) {
+      // Inyectar banner de aviso directamente en el chat
+      if (container) {
+        const banner = document.createElement('div');
+        banner.id = 'apikey-banner';
+        banner.style.cssText = `
+          background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.1));
+          border: 1px solid rgba(245,158,11,0.4);
+          border-radius: 16px;
+          padding: 16px;
+          animation: slideUp 0.3s ease-out;
+        `;
+        banner.innerHTML = `
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span style="font-size:20px;flex-shrink:0;">🔑</span>
+            <div style="flex:1;">
+              <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:#fbbf24;">API key requerida</p>
+              <p style="margin:0 0 14px;font-size:13px;color:#d97706;line-height:1.5;">
+                Para que Dr. Nexus responda necesitas configurar tu API key de Gemini (gratuita).
+                Obtenla en <strong>aistudio.google.com/app/apikey</strong>
+              </p>
+              <button
+                onclick="UI.showScreen('settings'); setTimeout(() => document.getElementById('apikey-input')?.focus(), 300);"
+                style="background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:10px;padding:11px 20px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">
+                ⚙ Ir a Ajustes · Ingresar API key
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(banner);
+      }
+    }
+
+    // Guardar estadística de nueva conversación
+    Storage.updateStats({ conversations: 1 });
+  },
+
+  // Cargar conversación guardada
+  loadConversation(id) {
+    const conv = Storage.getConversation(id);
+    if (!conv) {
+      UI.showToast('Conversación no encontrada', 'error');
+      return;
+    }
+
+    this.state.currentConvId = id;
+    this.state.currentMessages = conv.messages || [];
+    Storage.set(Storage.KEYS.currentConvId, id);
+
+    this.renderSavedConversation(conv);
+    UI.showScreen('chat');
+  },
+
+  // Renderizar conversación guardada
+  renderSavedConversation(conv) {
+    const container = document.getElementById('chat-messages');
+    if (!container) return;
+    container.innerHTML = '';
+
+    (conv.messages || []).forEach(msg => {
+      UI.appendMessage(msg.role, msg.content);
+    });
+  },
+
+  // Enviar mensaje del usuario
+  async sendMessage() {
+    const input = document.getElementById('msg-input');
+    const content = input?.value?.trim();
+
+    if (!content || this.state.isTyping) return;
+
+    // Limpiar input y resetear tamaño
+    input.value = '';
+    input.style.height = 'auto';
+
+    // Mostrar mensaje del usuario
+    UI.appendMessage('user', content);
+
+    // Agregar al historial de conversación
+    const userMsg = { role: 'user', content, timestamp: new Date().toISOString() };
+    this.state.currentMessages.push(userMsg);
+
+    // Sonido si está habilitado
+    const cfg = Storage.getConfig();
+    if (cfg.soundEnabled) this.playMessageSound();
+
+    // Deshabilitar input
+    this.state.isTyping = true;
+    const sendBtn = document.getElementById('send-btn');
+    if (sendBtn) sendBtn.disabled = true;
+
+    // Mostrar indicador de typing
+    const typingEl = UI.appendMessage('assistant', '', true);
+
+    // Generar respuesta via Gemini
+    try {
+      const { content: responseContent, nodes } = await Nexus.generateResponse(
+        this.state.currentMessages
+      );
+
+      // Reemplazar indicador de typing con respuesta real
+      if (typingEl && typingEl.parentNode) typingEl.remove();
+
+      // Mostrar respuesta con animación
+      const msgEl = UI.appendMessage('assistant', responseContent);
+
+      // Añadir chips de nodos activos si los hay
+      if (nodes?.length > 0 && msgEl) {
+        const chipsContainer = msgEl.querySelector('[id^="chips-"]');
+        if (chipsContainer) {
+          nodes.slice(0, 3).forEach(node => {
+            const chip = document.createElement('span');
+            chip.className = 'node-chip';
+            chip.innerHTML = `<span style="width:5px;height:5px;border-radius:50%;background:var(--nexus-primary);display:inline-block;"></span>${node}`;
+            chipsContainer.appendChild(chip);
+          });
+        }
+      }
+
+      // Guardar mensaje asistente
+      const assistantMsg = {
+        role: 'assistant',
+        content: responseContent,
+        nodes: nodes || [],
+        timestamp: new Date().toISOString()
+      };
+      this.state.currentMessages.push(assistantMsg);
+
+      // Persistir conversación
+      this.saveCurrentConversation(content);
+      Storage.updateStats({ messages: 2 });
+
+    } catch(err) {
+      // Quitar el indicador de typing
+      if (typingEl && typingEl.parentNode) typingEl.remove();
+
+      // Construir un mensaje de error útil y visible en el chat
+      // según el tipo de fallo (red, API key, límite, etc.)
+      console.error('[App] Error al llamar a Gemini:', err);
+
+      const errMsg = err.message || 'Error desconocido';
+      let friendlyMsg = '';
+
+      if (errMsg === 'API_KEY_MISSING') {
+        friendlyMsg = 'No hay una API key configurada. Ve a **Ajustes** e ingresa tu API key de Gemini en el campo correspondiente. Puedes obtenerla gratis en aistudio.google.com/app/apikey';
+        UI.showToast('Falta la API key — ve a Ajustes', 'warning', 5000);
+      } else if (!navigator.onLine) {
+        friendlyMsg = 'Sin conexión a internet. Verifica tu red e intenta de nuevo.';
+      } else if (errMsg.includes('API key') || errMsg.includes('permisos')) {
+        friendlyMsg = 'La API key de Gemini no es válida o fue revocada. Por favor actualiza el archivo con una nueva key generada en aistudio.google.com/app/apikey';
+      } else if (errMsg.includes('límite') || errMsg.includes('429')) {
+        friendlyMsg = 'Se alcanzó el límite de peticiones por minuto de Gemini. Espera unos segundos e intenta de nuevo.';
+      } else if (errMsg.includes('no está disponible') || errMsg.includes('500')) {
+        friendlyMsg = 'El servicio de Gemini no está disponible en este momento. Intenta de nuevo en unos minutos.';
+      } else if (errMsg.includes('filtrada') || errMsg.includes('SAFETY')) {
+        friendlyMsg = 'La respuesta fue bloqueada por filtros de seguridad. Intenta reformular tu consulta.';
+      } else {
+        friendlyMsg = `No pude obtener una respuesta en este momento. Detalle técnico: ${errMsg}`;
+      }
+
+      UI.appendMessage('assistant', friendlyMsg);
+      UI.showToast('Error al conectar con Gemini', 'error');
+    }
+
+    // Rehabilitar input
+    this.state.isTyping = false;
+    if (sendBtn) sendBtn.disabled = false;
+    input?.focus();
+  },
+
+  // Guardar conversación actual con título auto-generado
+  saveCurrentConversation(lastUserMessage) {
+    // Generar título desde el primer mensaje del usuario
+    const firstUserMsg = this.state.currentMessages
+      .find(m => m.role === 'user')?.content || lastUserMessage;
+
+    const title = firstUserMsg.length > 50
+      ? firstUserMsg.slice(0, 50) + '…'
+      : firstUserMsg;
+
+    const conv = {
+      id: this.state.currentConvId,
+      title,
+      messages: this.state.currentMessages,
+      createdAt: this.state.currentMessages[0]?.timestamp || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    Storage.saveConversation(conv);
+  },
+
+  // Auto-resize del textarea
+  autoResizeInput(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  },
+
+  // Manejar tecla Enter (enviar en desktop, nueva línea en móvil)
+  handleKeyDown(event) {
+    if (event.key === 'Enter' && !event.shiftKey && window.innerWidth > 768) {
+      event.preventDefault();
+      this.sendMessage();
+    }
+  },
+
+  // Sonido de mensaje (Web Audio API)
+  playMessageSound() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.1);
+    } catch(e) { /* silenciar error si Web Audio no está disponible */ }
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   SECCIÓN 8: FUNCIONALIDADES UX ADICIONALES
+   - Banner de instalación personalizado
+   - Indicador de conexión
+   - Splash screen
+───────────────────────────────────────────────── */
+
+// Capturar evento de instalación para banner personalizado
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); // Prevenir banner nativo
+  App.state.installPromptEvent = e;
+
+  // Mostrar banner personalizado si no fue dismissado
+  const cfg = Storage.getConfig();
+  if (!cfg.installDismissed) {
+    const banner = document.getElementById('install-banner');
+    if (banner) banner.classList.add('visible');
+  }
+});
+
+// Botón instalar
+document.getElementById('install-btn')?.addEventListener('click', async () => {
+  if (!App.state.installPromptEvent) return;
+  App.state.installPromptEvent.prompt();
+  const { outcome } = await App.state.installPromptEvent.userChoice;
+  if (outcome === 'accepted') {
+    document.getElementById('install-banner')?.classList.remove('visible');
+    UI.showToast('Dr. Nexus instalado correctamente', 'success');
+  }
+  App.state.installPromptEvent = null;
+});
+
+// Botón dismissar banner
+document.getElementById('install-dismiss')?.addEventListener('click', () => {
+  document.getElementById('install-banner')?.classList.remove('visible');
+  const cfg = Storage.getConfig();
+  cfg.installDismissed = true;
+  Storage.saveConfig(cfg);
+});
+
+// Monitorear estado de conexión
+window.addEventListener('online', () => UI.updateConnectionStatus(true));
+window.addEventListener('offline', () => {
+  UI.updateConnectionStatus(false);
+  UI.showToast('Sin conexión — operando en modo offline', 'warning');
+});
+
+// Estado inicial de conexión
+UI.updateConnectionStatus(navigator.onLine);
+
+/* ─────────────────────────────────────────────────
+   INICIALIZACIÓN PRINCIPAL
+   CORRECCIÓN: Se añade un timeout de seguridad de 4s
+   que garantiza que el splash SIEMPRE desaparece,
+   incluso si App.init() falla silenciosamente o si
+   Tailwind CDN tarda más de lo esperado en cargar.
+   Esto resuelve el congelamiento observado en Android.
+───────────────────────────────────────────────── */
+
+// Función que oculta el splash con fade-out
+function hideSplash() {
+  const splash = document.getElementById('splash');
+  if (!splash || splash.style.display === 'none') return;
+  splash.classList.add('fade-out');
+  setTimeout(() => { splash.style.display = 'none'; }, 500);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+  // ── Timeout de seguridad anti-congelamiento ──
+  // Si en 4 segundos la app no terminó de inicializar,
+  // el splash desaparece de todas formas y el usuario
+  // puede interactuar con la interfaz.
+  const safetyTimer = setTimeout(() => {
+    console.warn('[App] Timeout de seguridad activado — forzando cierre del splash.');
+    hideSplash();
+  }, 4000);
+
+  try {
+    // 1. Registrar Service Worker (solo bajo HTTP/HTTPS)
+    SW.register();
+
+    // 2. Esperar mínimo 1.2s para el splash
+    await new Promise(r => setTimeout(r, 1200));
+
+    // 3. Inicializar la aplicación con su propio try/catch
+    try {
+      await App.init();
+    } catch(initErr) {
+      console.error('[App] Error en App.init():', initErr);
+      // La app puede continuar aunque init falle parcialmente
+    }
+
+  } catch(err) {
+    console.error('[App] Error en inicialización:', err);
+  } finally {
+    // Siempre limpiar el timer y ocultar el splash,
+    // independientemente de si hubo errores o no.
+    clearTimeout(safetyTimer);
+    hideSplash();
+
+    // Animar entrada del chat
+    document.getElementById('screen-chat')?.classList.add('animate-fade-in');
+
+    // Enfocar input solo en desktop (en móvil evita abrir el teclado)
+    if (window.innerWidth > 768) {
+      document.getElementById('msg-input')?.focus();
+    }
+  }
+});
+
+// Detectar app instalada
+window.addEventListener('appinstalled', () => {
+  UI.showToast('Dr. Nexus instalado', 'success');
+  App.state.installPromptEvent = null;
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     TEMPLATE DEL SERVICE WORKER — Sección 1
+     Tipo "text/sw-template" es ignorado por el
+     navegador como JS ejecutable pero su textContent
+     está disponible para el módulo SW en tiempo de
+     ejecución. Esta técnica resuelve el error de
+     protocolo "blob-request://" que aparece cuando
+     el archivo se abre localmente con file://
+═══════════════════════════════════════════════ -->
+<script type="text/sw-template" id="sw-template">
+'use strict';
+
+// Nombre y versión del caché — incrementar para forzar actualización
+const CACHE_NAME = 'dr-nexus-v1';
+
+// URL del documento principal a pre-cachear
+const CRITICAL_ASSETS = [self.registration.scope];
+
+/* ── Evento INSTALL ──
+   Pre-cachea los assets críticos para garantizar
+   operación offline desde la primera carga. */
+self.addEventListener('install', (event) => {
+  console.log('[SW] Instalando versión:', CACHE_NAME);
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[SW] Pre-cacheando assets críticos...');
+      return cache.addAll(CRITICAL_ASSETS).catch((err) => {
+        console.warn('[SW] Error al pre-cachear:', err);
+      });
+    }).then(() => self.skipWaiting())
+  );
+});
+
+/* ── Evento ACTIVATE ──
+   Elimina cachés antiguas cuyo nombre no coincida
+   con CACHE_NAME para liberar espacio en disco. */
+self.addEventListener('activate', (event) => {
+  console.log('[SW] Activando versión:', CACHE_NAME);
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((oldCache) => {
+            console.log('[SW] Eliminando caché obsoleta:', oldCache);
+            return caches.delete(oldCache);
+          })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
+
+/* ── Evento FETCH ──
+   Bifurca la estrategia según el tipo de recurso:
+   • APIs externas   → Network First (datos frescos primero)
+   • Resto           → Cache First   (respuesta instantánea) */
+self.addEventListener('fetch', (event) => {
+  if (!event.request.url.startsWith('http')) return;
+
+  const url = new URL(event.request.url);
+
+  // Detectar llamadas a APIs externas
+  const isApiCall = url.hostname !== self.location.hostname &&
+                    (url.pathname.includes('/api/') ||
+                     url.hostname.includes('api.') ||
+                     url.hostname.includes('anthropic.com'));
+
+  if (isApiCall) {
+    // Estrategia NETWORK FIRST para APIs
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+  } else {
+    // Estrategia CACHE FIRST para estáticos (stale-while-revalidate)
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) {
+          // Actualizar en background sin bloquear la respuesta
+          fetch(event.request).then((fresh) => {
+            if (fresh && fresh.status === 200) {
+              caches.open(CACHE_NAME).then((c) => c.put(event.request, fresh));
+            }
+          }).catch(() => {});
+          return cached;
+        }
+        // Sin caché: ir a la red y guardar el resultado
+        return fetch(event.request).then((response) => {
+          if (!response || response.status !== 200 || response.type === 'opaque') {
+            return response;
+          }
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+          return response;
+        }).catch(() => {
+          if (event.request.mode === 'navigate') {
+            return caches.match(self.registration.scope);
+          }
+        });
+      })
+    );
+  }
+});
+</script>
+
+</body>
+</html>
